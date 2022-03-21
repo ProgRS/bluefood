@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}"
+	th:with="link=@{/cliente/home}">
+
+<body>
+	<div layout:fragment="content">
+	<form id="form" method="get" th:object="${searchFilter}" th:action="@{/cliente/search}">
+		<input id="searchType" type="hidden"  th:field="*{searchType}" />
+		<input id="categoriaId" type="hidden" th:field="*{categoriaId}" />
+			<div>
+				<h1>É hora de rangar!</h1>
+				
+					<fieldset>						
+						<input type="text" th:field="*{texto}" placeholder="Busca por ...">
+						<input type="button" value="Procurar" onclick="searchRest(null);">
+					</fieldset>
+					<br />				
+			</div>
+	
+			<div id="divCategoriasComidaGeral">
+				<div id="divCategoriaComidaOpcao" th:each="categoria : ${categorias}">
+					<a href="#" th:onclick="'searchRest(' + ${categoria.id} + ');'"> 
+					<img th:src="@{/images/categoria/} + ${categoria.imagem}" id="imgCategoriaComida"><br />
+					 <span th:text="${categoria.nome}"></span>
+					</a>
+				</div>
+			</div>
+		</form>
+		<div>
+			<h1>Últimos pedidos</h1>
+			<input type="button" value="#15124 McBlunalds"
+				onClick="location.href='clientepedido.html';"> <br /> <input
+				type="button" value="#35464 Blue Pizza"
+				onClick="location.href='clientepedido.html';"> <br /> <input
+				type="button" value="#38754 Hard Blue"
+				onClick="location.href='clientepedido.html';"> <br />
+		</div>
+
+		<div>
+			<h1>Conta</h1>
+			<input type="button" value="Meus dados"
+				th:onclick="'location.href=\'' + @{/cliente/edit} + '\';'">
+			<input type="button" value="Sair"
+				th:onclick="'location.href=\'' + @{/logout} + '\';'">
+		</div>
+	</div>
+</body>
+</html>
